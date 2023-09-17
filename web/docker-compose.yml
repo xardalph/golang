@@ -1,0 +1,22 @@
+version: '3'
+services:
+  mariadb:
+    image: mariadb
+    container_name: nextcloud_db
+    hostname: mariadb
+    volumes:
+      - nextcloud_db_config:/config
+      - nextcloud_db_db:/var/lib/mysql
+    restart: always
+    networks:
+      - traefik_proxy
+    environment:
+      - MYSQL_DATABASE=urlShort
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+
+
+
+
