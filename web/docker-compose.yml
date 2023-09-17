@@ -2,21 +2,25 @@ version: '3'
 services:
   mariadb:
     image: mariadb
-    container_name: nextcloud_db
+    container_name: urlDB
     hostname: mariadb
+    ports:
+      - '3658:3306'
     volumes:
-      - nextcloud_db_config:/config
-      - nextcloud_db_db:/var/lib/mysql
-    restart: always
-    networks:
-      - traefik_proxy
+      - url_db_config:/config
+      - url_db_db:/var/lib/mysql
     environment:
-      - MYSQL_DATABASE=urlShort
+      - MYSQL_DATABASE=urlShortener
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MARIADB_USER={$MYSQL_USER}
+      - MARIADB_PASSWORD={$MYSQL_PASSWORD}
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
 
+volumes:
+  url_db_config:
+  url_db_db:
 
 
 
