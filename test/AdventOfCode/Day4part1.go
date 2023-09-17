@@ -64,7 +64,10 @@ func initSliceBoard() [][][]string {
 		boards = append(boards, make([][]string, 5))
 
 		boards[boardNumber] = make([][]string, 5)
-
+		// CODINGAME
+		//  M E
+		// AN G
+		// CODI
 		for _, line := range strings.Split(board, "\n") {
 			line = strings.Trim(line, " ")
 			if line == "" || line == "  " {

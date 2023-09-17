@@ -19,6 +19,31 @@ func printBoard(list []string) {
 	fmt.Println()
 }
 
+type type_name struct{}
+
+func (m []type_name) function_name() int {
+	//code
+}
+
+func checkForOneLine(line string) {
+	var stack [][]rune
+
+	stack = append(stack, make([]rune, 0))
+
+	for _, char := range line {
+		if stack[0][len(stack[0])-1] > char {
+			stack[len(stack)-1] = append(stack[len(stack)-1], char)
+		} else {
+			stack = append(stack, make([]rune, 0))
+			stack[len(stack)-1] = append(stack[len(stack)-1], char)
+		}
+
+		fmt.Fprintf(os.Stderr, "heu c'était quoi ? %+v ", string(stack[0][len(stack[0])-1]))
+	}
+	fmt.Fprintf(os.Stderr, "   %+v ", string(stack[0]))
+	fmt.Fprintf(os.Stderr, "\nEND OF LINE\n")
+}
+
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 
@@ -36,13 +61,13 @@ func main() {
 			fmt.Println("c pas entre 0 et 9")
 			continue
 		}
-		board[nbr - 1] = "X"
+		board[nbr-1] = "X"
 		printBoard(board)
 		fmt.Println()
 		separator := ""
-		string := strings.Join(board , separator)
+		string := strings.Join(board, separator)
 		regex, _ := regexp.MatchString("[XO]{9}", string)
-		if  regex {
+		if regex {
 			fmt.Println("FIN du game")
 			condition = false
 		}
