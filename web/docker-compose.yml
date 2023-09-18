@@ -1,26 +1,15 @@
 version: '3'
 services:
   mariadb:
-    image: mariadb
+    image: redis
     container_name: urlDB
-    hostname: mariadb
+    hostname: redisUrl
     ports:
-      - '3658:3306'
+      - '6379:6379'
+    command: redis-server --save 60 1 --loglevel warning --requirepass ${PASSWORD}
     volumes:
-      - url_db_config:/config
-      - url_db_db:/var/lib/mysql
-    environment:
-      - MYSQL_DATABASE=urlShortener
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MARIADB_USER={$MYSQL_USER}
-      - MARIADB_PASSWORD={$MYSQL_PASSWORD}
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
+      - cache:/data
 
 volumes:
-  url_db_config:
-  url_db_db:
-
-
-
+  cache:
+    driver: local
