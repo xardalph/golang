@@ -22,7 +22,11 @@ type conf struct {
 }
 
 func (cfg conf) shortHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
+	_, err := fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
+	if err != nil {
+		fmt.Println("error when saving a document : ", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 
 }
 
